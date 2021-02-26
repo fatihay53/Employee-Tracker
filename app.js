@@ -167,6 +167,8 @@ async function addEmployeeTable() {
     let manager = []
     if (questions.managerConfirm === "None") {
         result = null
+        console.log(result)
+        console.table(result)
 
     }
 
