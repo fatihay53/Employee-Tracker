@@ -238,3 +238,19 @@ async function addRole() {
 
     return z
 }
+// Add Department
+
+async function addDepartment() {
+    const answer = await inquirer.prompt([
+        {
+            message: 'What is the name of the department?',
+            name: 'name',
+            type: 'input'
+        }
+    ])
+    let x = await db.query('INSERT INTO department VALUES(?,?)', [0, answer.name])
+    let z = await db.query(`select department_name from department`)
+    return z
+
+
+}
