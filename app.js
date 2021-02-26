@@ -393,3 +393,24 @@ async function removeRole() {
     return x
 
 }
+//remove department
+async function removeDepartment() {
+    const arr = []
+    let result = await db.query('SELECT department_name FROM department')
+    result.forEach(({ department_name }) => {
+        arr.push(`${department_name}`)
+    })
+    const answer = await inquirer.prompt([
+        {
+            message: 'Which department would you like to remove?',
+            type: 'list',
+            choices: arr,
+            name: 'name'
+        }
+    ])
+    await db.query(`DELETE FROM department WHERE department_name = '${answer.name}'`)
+
+    let x = await db.query(`select department_name from department`)
+    return x
+
+}
