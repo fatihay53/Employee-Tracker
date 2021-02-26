@@ -51,3 +51,40 @@ async function viewEmployeeByDepartments() {
     return x
 
 }
+// manager choice
+async function managerChoice() {
+    const value = await db.query('select first_name from employee where manager_id is not null ')
+    let managerArray = []
+    value.forEach(({ first_name }) => {
+        managerArray.push(first_name)
+    })
+
+
+    let result = await inquirer.prompt([
+        { name: "managerChoice1", message: "Which manager ?", type: "list", choices: managerArray }
+    ])
+    let result1 = await db.query(`select role_id from employee where first_name = '${result.managerChoice1}'`)
+    let array1 = ''
+    result1.forEach(({ role_id }) => {
+        array1 += role_id
+    })
+
+    let result2 = await db.query(`select manager_id from employee where role_id= '${array1}' `)
+    return result2
+
+}
+// select employee BY manager choice 
+
+
+async function viewEmployeeByManager() {
+    let result = await managerChoice()
+    let array1 = ''
+    result.forEach(({ manager_id }) => {
+        array1 += manager_id
+    })
+
+    // console.log(result)
+    const x = await db.query(`select employee.first_name,last_name from employee where role_id = '${array1}'`);
+    return x
+
+}
