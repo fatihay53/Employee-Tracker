@@ -226,7 +226,7 @@ async function addRole() {
             choices: depArray
         }
     ])
-    
+
     let departmentId = await db.query(`select department.id from department left join role on department.id=role.department_id where department.department_name = '${answer.departmentName}' `)
     let depId = []
     departmentId.forEach(({ id }) => {
@@ -676,3 +676,53 @@ async function main() {
                             }
                             break;
                         }
+                        case "Employee": {
+                            let result = await removeEmployee()
+                            console.table(result)
+                            const x = await lastQuestion()
+                            console.log(x.lastQ)
+                            switch (x.lastQ) {
+                                case true: {
+                                    await main()
+                                }
+                                case false: {
+                                    console.log('App is Closing')
+                                    break;
+
+                                }
+
+                            }
+                            break;
+                        }
+
+                        case "Department": {
+
+                            let result = await removeDepartment()
+                            console.table(result)
+                            const x = await lastQuestion()
+                            console.log(x.lastQ)
+                            switch (x.lastQ) {
+                                case true: {
+                                    await main()
+                                }
+                                case false: {
+                                    console.log('App is Closing')
+                                    break;
+
+                                }
+
+                            }
+                            break;
+
+                        }
+
+
+                    }
+                    break;
+
+                }
+            }
+
+            break;
+
+        }
