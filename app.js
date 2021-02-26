@@ -525,3 +525,23 @@ async function main() {
                     }
                     break;
                 }
+                case "total utilized budget of a department": {
+                    await salaryDepartment()
+
+                    const x = await lastQuestion()
+                    console.log(x.lastQ)
+                    switch (x.lastQ) {
+                        case true: {
+                            await main()
+                        }
+                        case false: {
+                            console.log('App is Closing')
+                            break;
+
+                        }
+
+                    }
+                    break;
+                }
+
+            }
