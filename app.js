@@ -210,3 +210,19 @@ async function addRole() {
     departments.forEach(({ department_name }) => {
         depArray.push(department_name)
     })
+    const answer = await inquirer.prompt([
+        {
+            message: 'What is the title of the role?',
+            name: 'title'
+        },
+        {
+            message: 'What is the salary of the role?',
+            name: 'salary'
+        },
+        {
+            message: 'Add it in which department?',
+            type: "list",
+            name: "departmentName",
+            choices: depArray
+        }
+    ])
