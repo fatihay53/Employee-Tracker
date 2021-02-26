@@ -104,3 +104,23 @@ async function viewRole() {
 
     return x
 }
+//sum of Department salary
+
+async function salaryDepartment() {
+    let departmentList = await db.query('SELECT department_name from department')
+    let department2 = []
+    departmentList.forEach(({ department_name }) => {
+        department2.push(department_name)
+    })
+
+    let departmentChoise = await inquirer.prompt([
+
+        { name: 'department1', message: 'Please select department for budget', type: 'list', choices: department2 }
+
+    ])
+
+    let budget = await db.query(`SELECT SUM(salary) as salary FROM role left join department on (role.department_id=department.id) where department_name='${departmentChoise.department1}' `)
+    console.log(`Department budget: ${budget[0].salary} $`)
+
+
+}
