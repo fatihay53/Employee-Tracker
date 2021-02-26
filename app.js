@@ -291,3 +291,25 @@ async function updateEmployeRole() {
     let z = await db.query(`select first_name,last_name,title from employee inner join role on employee.role_id=role.id`)
     return z
 }
+//Update Department
+async function updateEmployeeDepartment() {
+    let employees = await db.query(`Select id,first_name,last_name from employee `)
+    let empArray = []
+    employees.forEach(({ id, first_name, last_name }) => {
+        empArray.push(`${id} ${first_name} ${last_name}`)
+
+    })
+
+    let x = await inquirer.prompt([
+        {
+            name: 'selectEmployee', message: "Choose Employee that you want to change", type: "list", choices: empArray
+        }
+    ])
+
+
+    let department = await db.query('select id,department_name from department')
+    let departmentArray = []
+    department.forEach(({ id, department_name }) => {
+        departmentArray.push(`${id} ${department_name}`)
+
+    })
