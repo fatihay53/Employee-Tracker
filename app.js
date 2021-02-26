@@ -26,3 +26,28 @@ async function viewEmployee() {
     ])
 
 }
+// select  department choise
+async function depChoice() {
+    const value = await db.query('select * from department')
+    // console.log(value)
+    let departmentArray = []
+
+    value.forEach(({ department_name }) => {
+        departmentArray.push(`${department_name}`)
+    })
+
+
+    return await inquirer.prompt([
+        { name: "depChoice1", message: "Which department?", type: "list", choices: departmentArray }
+    ])
+
+}
+// View employee BY Departments
+async function viewEmployeeByDepartments() {
+    let result = await depChoice()
+
+    let x = await db.query(`select employee.first_name,last_name from employee left join role on (employee.role_id=role.id) inner join department on 
+    (role.department_id=department.id) where department_name='${result.depChoice1}'`);
+    return x
+
+}
