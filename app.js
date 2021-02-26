@@ -129,3 +129,76 @@ function addQuestion() {
         { name: "addQuestion1", message: "What would you like to add", type: "list", choices: ["Employee", "Role", "Department"] },
     ])
 }
+
+// Add  employee
+async function addEmployeeTable() {
+
+    const roleValue = await db.query('select title from role')
+    let role = []
+    role.push("None")
+    roleValue.forEach(({ title }) => {
+        role.push(title)
+    })
+
+    const questions = await inquirer.prompt([
+        {
+            message: "What is the employee's first name?",
+            name: 'firstName'
+        },
+        {
+            message: "What is the employee's last name?",
+            name: 'lastName'
+        },
+        {
+            message: "What is the employee's role?",
+            name: 'role',
+            type: 'list',
+            choices: role
+        },
+        {
+            message: "What role is he manager of ?",
+            type: 'list',
+            choices: role,
+            name: 'managerConfirm'
+        },
+
+    ])
+    let result
+    let manager = []
+    if (questions.managerConfirm === "None") {
+        result = null
+
+    }
+
+    else {
+        result = await db.query(`Select id from role where title ='${questions.managerConfirm}'`)
+
+
+        managerId = await db.query(`Select id from role where title ='${questions.role}'`)
+
+        managerId.forEach(({ id }) => {
+            manager.push(id)
+
+        })
+        manager = Number(manager)
+
+
+    }
+
+    let roll = []
+
+    rolId = await db.query(`Select id from role where title ='${questions.role}'`)
+
+    rolId.forEach(({ id }) => {
+        roll.push(id)
+
+    })
+    roll = Number(roll)
+
+    await db.query('INSERT INTO employee VALUES(?,?,?,?,?)', [0, questions.firstName, questions.lastName, roll, manager])
+
+    let x = await db.query(`select * from employee`);
+    return x
+
+
+}
