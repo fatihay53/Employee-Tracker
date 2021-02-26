@@ -337,3 +337,20 @@ function removeChoice() {
         },
     ])
 }
+// remove employe
+
+
+async function removeEmployee() {
+    let arr = []
+    let result = await db.query('SELECT first_name,last_name FROM employee')
+    result.forEach(({ first_name, last_name }) => {
+        arr.push(`${first_name} ${last_name}`)
+    })
+    const answer = await inquirer.prompt([
+        {
+            message: 'Which employee would you like to remove?',
+            type: 'list',
+            choices: arr,
+            name: 'name'
+        }
+    ])
