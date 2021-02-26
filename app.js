@@ -327,3 +327,13 @@ async function updateEmployeeDepartment() {
     return z
 
 }
+// remove question
+
+function removeChoice() {
+
+    return inquirer.prompt([
+        {
+            name: "removeChoice1", message: "What would you like to remove", type: "list", choices: ["Role", "Employee", "Department"]
+        },
+    ])
+}
