@@ -254,3 +254,27 @@ async function addDepartment() {
 
 
 }
+
+//update Role
+async function updateEmployeRole() {
+    let employees = await db.query(`Select first_name,last_name from employee`)
+    let empArray = []
+
+    employees.forEach(({ first_name, last_name }) => {
+        empArray.push(`${first_name} ${last_name}`)
+
+    })
+
+    let roles = await db.query(`Select title from role`)
+    let roleArray = []
+    roles.forEach(({ title }) => {
+        roleArray.push(title)
+    })
+    let x = await inquirer.prompt([
+        {
+            name: 'chooseEmployee', message: "Choose the Employee First", type: "list", choices: empArray
+        },
+        {
+            name: 'chooseRole', message: "Select The new Role", type: "list", choices: roleArray
+        }
+    ])
