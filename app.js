@@ -354,3 +354,20 @@ async function removeEmployee() {
             name: 'name'
         }
     ])
+    let a = answer.name
+    console.log(a)
+    let b = a.split(" ")
+    console.log(b)
+
+    await db.query(`UPDATE employee set manager_id = null where first_name = '${b[0]}' AND last_name = '${b[1]}' `)
+    console.log(`${b[0]},${b[1]}`)
+
+
+    await db.query(`DELETE FROM employee WHERE first_name = '${b[0]}' AND last_name = '${b[1]}'`)
+
+
+
+
+    let x = await db.query(`select first_name,last_name from employee`)
+    return x
+}
