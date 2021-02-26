@@ -588,3 +588,22 @@ async function main() {
                                 }
 
                             }
+                            break;
+                        }
+                        case "Department": {
+                            let result = await addDepartment()
+                            console.table(result)
+                            const x = await lastQuestion()
+                            console.log(x.lastQ)
+                            switch (x.lastQ) {
+                                case true: {
+                                    await main()
+                                }
+                                case false: {
+                                    console.log('App is Closing')
+                                    break;
+
+                                }
+
+                            }
+                            break;
