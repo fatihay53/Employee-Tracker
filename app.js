@@ -124,3 +124,8 @@ async function salaryDepartment() {
 
 
 }
+function addQuestion() {
+    return inquirer.prompt([
+        { name: "addQuestion1", message: "What would you like to add", type: "list", choices: ["Employee", "Role", "Department"] },
+    ])
+}
