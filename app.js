@@ -88,3 +88,19 @@ async function viewEmployeeByManager() {
     return x
 
 }
+
+// View Department
+
+
+async function viewDepartment() {
+    let x = await db.query(`select department_name from department`)
+    return x
+
+}
+
+//View Role
+async function viewRole() {
+    let x = await db.query(`select title from role`)
+
+    return x
+}
