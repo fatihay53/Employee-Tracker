@@ -313,3 +313,17 @@ async function updateEmployeeDepartment() {
         departmentArray.push(`${id} ${department_name}`)
 
     })
+    let y = await inquirer.prompt([
+        {
+            name: 'selectDepartment', message: "Choose Department", type: "list", choices: departmentArray
+        }
+    ])
+    let employeeid = Number(x.selectEmployee.split(" ")[0])
+    let departmentid = Number(y.selectDepartment.split(" ")[0])
+
+    let resultOfDep = await db.query(`SELECT id from role WHERE department_id = ${departmentid};`)
+    await db.query(`UPDATE employee Set role_id = ${resultOfDep[0].id} WHERE employee.id = ${employeeid};`)
+    let z = db.query(`select first_name,last_name,department_name from employee left join role on employee.role_id=role.id left join department on role.department_id=department.id `)
+    return z
+
+}
