@@ -726,3 +726,17 @@ async function main() {
             break;
 
         }
+        
+    }
+    await db.close();
+
+}
+
+async function lastQuestion() {
+    return await inquirer.prompt([
+        {
+            name: 'lastQ', message: 'Would you like to continue?', type: 'confirm'
+
+        }])
+}
+main();
