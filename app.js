@@ -278,3 +278,16 @@ async function updateEmployeRole() {
             name: 'chooseRole', message: "Select The new Role", type: "list", choices: roleArray
         }
     ])
+    let nameToId = await db.query(`select id from role where title ="${x.chooseRole}"`)
+
+    let idNumb = []
+    nameToId.forEach(({ id }) => {
+        idNumb.push(id)
+    })
+    let fn = x.chooseEmployee.split(" ")[0]
+    let ln = x.chooseEmployee.split(" ")[1]
+
+    let y = await db.query(`UPDATE employee SET role_id = ${idNumb[0]} WHERE first_name = "${fn}" AND last_name = "${ln}"`)
+    let z = await db.query(`select first_name,last_name,title from employee inner join role on employee.role_id=role.id`)
+    return z
+}
