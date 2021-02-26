@@ -202,3 +202,11 @@ async function addEmployeeTable() {
 
 
 }
+// Add  Role
+
+async function addRole() {
+    let departments = await db.query(`select department_name from department`);
+    let depArray = []
+    departments.forEach(({ department_name }) => {
+        depArray.push(department_name)
+    })
