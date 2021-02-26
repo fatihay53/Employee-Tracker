@@ -371,3 +371,25 @@ async function removeEmployee() {
     let x = await db.query(`select first_name,last_name from employee`)
     return x
 }
+// remove manager
+
+async function removeRole() {
+    const arr = []
+    let result = await db.query('SELECT title FROM role')
+    result.forEach(({ title }) => {
+        arr.push(`${title}`)
+    })
+    const answer = await inquirer.prompt([
+        {
+            message: 'Which role would you like to remove?',
+            type: 'list',
+            choices: arr,
+            name: 'name'
+        }
+    ])
+    await db.query(`DELETE FROM role WHERE title = '${answer.name}'`)
+
+    let x = await db.query(`select title from role`)
+    return x
+
+}
