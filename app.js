@@ -414,3 +414,12 @@ async function removeDepartment() {
     return x
 
 }
+
+function secondOption() {
+    return inquirer.prompt([
+        {
+            name: "addUpdateDelete", message: "What would you like to do", type: "list",
+            choices: ["Add", "Update", "Remove"]
+        },
+    ])
+}
