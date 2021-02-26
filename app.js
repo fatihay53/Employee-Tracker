@@ -423,3 +423,67 @@ function secondOption() {
         },
     ])
 }
+async function main() {
+
+
+
+    const response1 = await askQuestion();
+
+
+    switch (response1.firstChoice) {
+        case "View Details":
+            const viewD = await viewDetails()
+
+            switch (viewD.viewDetails) {
+                case "Employees": {
+                    const view1 = await viewEmployee()
+
+                    switch (view1.viewEmployee1) {
+                        case 'BY department': {
+                            let view = await viewEmployeeByDepartments()
+                            console.table(view)
+                            const x = await lastQuestion()
+                            console.log(x.lastQ)
+                            switch (x.lastQ) {
+                                case true: {
+                                    await main()
+                                }
+                                case false: {
+                                    console.log('App is Closing')
+                                    break;
+
+                                }
+
+                            }
+
+                            break;
+                        }
+                        case "BY manager": {
+                            let result = await viewEmployeeByManager()
+                            console.table(result)
+                            const x = await lastQuestion()
+                            console.log(x.lastQ)
+                            switch (x.lastQ) {
+                                case true: {
+                                    await main()
+                                }
+                                case false: {
+                                    console.log('App is Closing')
+                                    break;
+
+                                }
+
+
+                            }
+
+                            break;
+
+
+
+                        }
+
+
+
+                    }
+
+                }
