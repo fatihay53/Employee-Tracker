@@ -226,3 +226,15 @@ async function addRole() {
             choices: depArray
         }
     ])
+    
+    let departmentId = await db.query(`select department.id from department left join role on department.id=role.department_id where department.department_name = '${answer.departmentName}' `)
+    let depId = []
+    departmentId.forEach(({ id }) => {
+        depId.push(id)
+    })
+    depId = Number(depId[0])
+    await db.query('INSERT INTO role VALUES     (?,?,?,?)', [0, answer.title, answer.salary, depId])
+    let z = await db.query(`select title from role`)
+
+    return z
+}
