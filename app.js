@@ -607,3 +607,72 @@ async function main() {
 
                             }
                             break;
+                        }
+                    }
+                    break;
+                }
+                case 'Update': {
+                    let update = await updateChoice()
+                    switch (update.updateChoice1) {
+                        case "Employee Role": {
+                            let result = await updateEmployeRole()
+                            console.table(result)
+                            const x = await lastQuestion()
+                            console.log(x.lastQ)
+                            switch (x.lastQ) {
+                                case true: {
+                                    await main()
+                                }
+                                case false: {
+                                    console.log('App is Closing')
+                                    break;
+
+                                }
+
+                            }
+                            break;
+                        }
+
+                        case "Employee Department": {
+                            let result = await updateEmployeeDepartment()
+                            console.table(result)
+                            const x = await lastQuestion()
+                            console.log(x.lastQ)
+                            switch (x.lastQ) {
+                                case true: {
+                                    await main()
+                                }
+                                case false: {
+                                    console.log('App is Closing')
+                                    break;
+
+                                }
+
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                }
+
+                case 'Remove': {
+                    let remove = await removeChoice()
+                    switch (remove.removeChoice1) {
+                        case "Role": {
+                            let result = await removeRole()
+                            console.table(result)
+                            const x = await lastQuestion()
+                            console.log(x.lastQ)
+                            switch (x.lastQ) {
+                                case true: {
+                                    await main()
+                                }
+                                case false: {
+                                    console.log('App is Closing')
+                                    break;
+
+                                }
+
+                            }
+                            break;
+                        }
